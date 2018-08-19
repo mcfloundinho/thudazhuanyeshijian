@@ -1401,23 +1401,14 @@
   hcentering,
   ignoreall,
   nomarginpar}
-\ifthu@bachelor
   \geometry{
+  	top=40mm,
     left=32mm,
     headheight=5mm,
-    headsep=5mm,
-    textheight=227mm,
+    headsep=12mm,
+    textheight=225mm,
     bottom=32mm,
     footskip=12mm}
-\else
-  \geometry{
-    left=30mm,
-    headheight=5mm,
-    headsep=5mm,
-    textheight=237mm,
-    bottom=29mm,
-    footskip=6mm}
-\fi
 %    \end{macrocode}
 %
 % 利用 \pkg{fancyhdr} 设置页眉页脚。
@@ -1467,7 +1458,7 @@
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmattertrue
   \pagenumbering{arabic}
-  \ifthu@bachelor\pagestyle{thu@plain}\else\pagestyle{thu@headings}\fi}
+  \pagestyle{thu@headings}}
 \renewcommand\backmatter{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \@mainmattertrue}
@@ -2139,11 +2130,11 @@
 \ctexset{%
   chapter={
     afterindent=true,
-    pagestyle={\ifthu@bachelor thu@plain\else thu@headings\fi},
-    beforeskip={\ifthu@bachelor 15bp\else 9bp\fi},
+    pagestyle={thu@headings},
+    beforeskip={9bp},
     aftername=\hskip\ccwd,
-    afterskip={\ifthu@bachelor 20bp\else 24bp\fi},
-    format={\centering\sffamily\ifthu@bachelor\xiaosan[1.333]\else\sanhao[1]\fi},
+    afterskip={24bp},
+    format={\centering\sffamily\sanhao[1]},
     nameformat=\relax,
     numberformat=\relax,
     titleformat=\thu@chapter@titleformat,
@@ -2353,6 +2344,11 @@
 \thu@def@term{esupervisor}
 \thu@def@term{eassosupervisor}
 \thu@def@term{ecosupervisor}
+\thu@def@term{cclazz}
+\thu@def@term{cstudentid}
+\thu@def@term{cshijiandidian}
+\thu@def@term{cshijiandanwei}
+\thu@def@term{cshijianbumen}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -2528,9 +2524,9 @@
   \def\thu@secretlevel{秘密}
 \fi
 \def\thu@secretyear{\the\year}
-\def\thu@schoolname{清华大学}
+\def\thu@schoolname{清华大学自动化系}
 \def\thu@postdoctor@report@title{博士后研究报告}
-\def\thu@bachelor@subtitle{综合论文训练}
+\def\thu@bachelor@subtitle{专业实践技术报告}
 \def\thu@bachelor@title@pre{题目}
 \def\thu@postdoctor@date@title{研究起止日期}
 \ifthu@postdoctor
@@ -2542,6 +2538,11 @@
     \def\thu@author@title{研究生}
   \fi
 \fi
+\def\thu@clazz@title{班级}
+\def\thu@studentid@title{学号}
+\def\thu@shijiandidian@title{实践地点}
+\def\thu@shijiandanwei@title{实践单位}
+\def\thu@shijianbumen@title{实践部门}
 \def\thu@postdoctor@first@discipline@title{流动站（一级学科）名称}
 \def\thu@postdoctor@second@discipline@title{专\hspace{1em}业（二级学科）名称}
 \def\thu@secret@content{%
@@ -2650,7 +2651,6 @@
   \end{center}
   \cleardoublepage
   \begin{center}
-    \vspace*{2cm}
     {\sihao\heiti\thu@ctitle\par\thu@etitle}\par
     \parbox[t][7cm][b]{\textwidth-6cm}{\sihao[1.5]%
       \setlength{\thu@title@width}{11em}
@@ -2678,14 +2678,14 @@
   \end{center}}
 \newcommand{\thu@first@titlepage@other}{
   \begin{center}
-    \vspace*{-1.6cm}
+    \vspace*{-3.9cm}
     \parbox[b][2.4cm][t]{\textwidth}{%
       \ifthu@secret{\heiti\sanhao\thu@secretlevel\thu@secret@content}\else\rule{1cm}{0cm}\fi}
     \ifthu@bachelor
       \vskip0.65cm
       {\ifcsname lishu\endcsname\yihao\lishu\ziju{0.5}\thu@schoolname\else\includegraphics{tsinghua}\fi}
       \par\vskip1.5cm
-      {\xiaochu\heiti\ziju{0.5}\textbf\thu@bachelor@subtitle}
+      {\xiaochu\heiti\textbf\thu@bachelor@subtitle}
       \vskip2.2cm\hskip0.8cm
       \noindent\heiti\xiaoer\thu@bachelor@title@pre\thu@title@sep
       \parbox[t]{12cm}{%
@@ -2736,12 +2736,18 @@
          \else
            \begin{tabular}{p{\thu@title@width}l@{}l}
          \fi
-             \thu@put@title{\thu@department@title} & \thu@title@sep
-               & \thu@cdepartment\\
-             \thu@put@title{\thu@major@title}      & \thu@title@sep
-               & \thu@cmajor\\
+             \thu@put@title{\thu@clazz@title}      & \thu@title@sep
+               & \thu@cclazz \\
              \thu@put@title{\thu@author@title}     & \thu@title@sep
                & \thu@cauthor \\
+             \thu@put@title{\thu@studentid@title}     & \thu@title@sep
+               & \thu@cstudentid \\
+             \thu@put@title{\thu@shijiandidian@title}     & \thu@title@sep
+               & \thu@cshijiandidian \\
+             \thu@put@title{\thu@shijiandanwei@title}     & \thu@title@sep
+               & \thu@cshijiandanwei \\
+             \thu@put@title{\thu@shijianbumen@title}     & \thu@title@sep
+               & \thu@cshijianbumen \\
              \thu@put@title{\thu@supervisor@title} & \thu@title@sep
                & \thu@csupervisor\\
              \ifx\thu@cassosupervisor\@empty\else%
@@ -2793,7 +2799,7 @@
 % \changes{v4.4.3}{2008/06/09}{修改本科生论文封面日期格式以符合新样例。}
 %    \begin{macrocode}
      \begin{center}
-       {\ifthu@bachelor\vskip-1.0cm\xiaosi\else%
+       {\ifthu@bachelor\vskip3.5cm\xiaosi\else%
          \vskip-0.5cm\sanhao\fi%
          \songti\thu@cdate}
      \end{center}
@@ -2953,23 +2959,6 @@
 % \changes{v4.6}{2011/05/29}{博士后报告无授权说明。}
 % \changes{v5.0.0}{2015/06/05}{使用 \pkg{pdfpages} 宏包支持本硕博论文授权说明扫描版(\#36)。}
 %    \begin{macrocode}
-    \ifthu@postdoctor\relax\else%
-      \ifthu@bachelor\clearpage\else\cleardoublepage\fi%
-      \IfNoValueTF{#1}{%
-        \ifthu@bachelor\thu@authorization@mk\else%
-          \begin{list}{}{%
-            \topsep\z@%
-            \listparindent\parindent%
-            \parsep\parskip%
-            \setlength{\leftmargin}{0.9mm}%
-            \setlength{\rightmargin}{0.9mm}}%
-          \item[]\thu@authorization@mk%
-          \end{list}%
-        \fi%
-      }{%
-        \includepdf{#1}%
-      }%
-    \fi
   \end{titlepage}
 %    \end{macrocode}
 %
@@ -3014,11 +3003,7 @@
 \newcommand{\thu@makeabstract}{%
   \ifthu@bachelor\clearpage\else\cleardoublepage\fi
   \thu@chapter*[]{\cabstractname} % no tocline
-  \ifthu@bachelor
-    \pagestyle{thu@plain}
-  \else
-    \pagestyle{thu@headings}
-  \fi
+  \pagestyle{thu@headings}
   \pagenumbering{Roman}
 %    \end{macrocode}
 %
