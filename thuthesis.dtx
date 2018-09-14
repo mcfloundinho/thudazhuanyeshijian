@@ -3133,10 +3133,6 @@
   {
     \ifthu@postdoctor\relax\else%
       \IfNoValueTF{#1}{%
-        \thu@chapter*{\thu@declarename}
-        \par{\xiaosi\parindent2em\thu@declaretext}\vskip2cm
-        {\xiaosi\hfill\thu@signature\thu@underline[2.5cm]\relax%
-         \thu@backdate\thu@underline[2.5cm]\relax}%
       }{%
         \includepdf[pagecommand={\thispagestyle{thu@empty}%
           \phantomsection\addcontentsline{toc}{chapter}{\thu@declarename}%
